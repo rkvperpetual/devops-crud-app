@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple task manager application.">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="/">Task Manager</a>
+            <span class="topbar-note">Personal workspace</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">YOUR WORKSPACE</p>
+                <h1>My Tasks</h1>
+                <p class="subtitle">Keep track of what needs to get done.</p>
+            </div>
+            <div class="date-label" id="today-date"></div>
+        </section>
+
+        <section class="summary-grid" aria-label="Task summary">
+            <article class="summary-card">
+                <span class="summary-label">Total tasks</span>
+                <strong id="total-count">0</strong>
+            </article>
+            <article class="summary-card">
+                <span class="summary-label">In progress</span>
+                <strong id="progress-count">0</strong>
+            </article>
+            <article class="summary-card">
+                <span class="summary-label">Completed</span>
+                <strong id="completed-count">0</strong>
+            </article>
+        </section>
+
+        <section class="content-grid">
+            <section class="panel form-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h2 id="form-heading">Add a task</h2>
+                        <p>Create a task and keep it here.</p>
+                    </div>
+                </div>
+
+                <form id="task-form">
+                    <input type="hidden" id="task-id">
+
+                    <label for="task-title">Task title</label>
+                    <input
+                        type="text"
+                        id="task-title"
+                        maxlength="100"
+                        placeholder="e.g. Complete Kubernetes deployment"
+                        required
+                    >
+
+                    <label for="task-description">Description <span class="optional">(optional)</span></label>
+                    <textarea
+                        id="task-description"
+                        rows="4"
+                        maxlength="500"
+                        placeholder="Add a few details..."
+                    ></textarea>
+
+                    <label for="task-status" id="status-label" class="hidden">Status</label>
+                    <select id="task-status" class="hidden">
+                        <option>Pending</option>
+                        <option>In Progress</option>
+                        <option>Completed</option>
+                    </select>
+
+                    <div class="form-actions">
+                        <button type="submit" class="button button-primary" id="submit-button">Add task</button>
+                        <button type="button" class="button button-secondary hidden" id="cancel-button">Cancel</button>
+                    </div>
+                </form>
+                <p class="form-message" id="form-message" role="status"></p>
+            </section>
+
+            <section class="panel tasks-panel">
+                <div class="tasks-header">
+                    <div>
+                        <h2>All tasks</h2>
+                        <p>Your current task list.</p>
+                    </div>
+                    <select id="task-filter" aria-label="Filter tasks">
+                        <option value="All">All tasks</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+                <div id="task-list" class="task-list">
+                    <p class="loading-text">Loading tasks...</p>
+                </div>
+            </section>
+        </section>
+
+        <footer class="footer">
+            <span>Task Manager</span>
+            <span>Simple task tracking</span>
+        </footer>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
